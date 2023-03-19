@@ -54,13 +54,17 @@ pipeline {
                 }
             }
         }
-        stage('Build Container') {
+//        stage('Build Container') {
+//            steps {
+//                // img = sh("docker inspect nithya:v1 > /dev/null 2>&1 && echo yes || echo no")
+//                // sh "echo 'output: ${img}'"
+//                sh 'docker run -d --name nithya-container -p 8000:80 nithyaks/nithya-resume:latest'
+//            }
+//        }
+        stage('triggerHelmJob') {
             steps {
-                // img = sh("docker inspect nithya:v1 > /dev/null 2>&1 && echo yes || echo no")
-                // sh "echo 'output: ${img}'"
-                sh 'docker run -d --name nithya-container -p 8000:80 nithyaks/nithya-resume:latest'
+                build job: "helm-nithya", wait: true
             }
         }
     }
 }
-
